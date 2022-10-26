@@ -29,7 +29,7 @@ class Sprite {
     }
 
 
-    draw (){
+    draw (){ 
         c.fillStyle = this.color
         c.fillRect(this.position.x, this.position.y, this.width, this.height)
 
