@@ -25,7 +25,7 @@ const player = new fi (
         y: 0 
     }
     }
-)
+);
 
 const enemy = new fi ({
     position:{
