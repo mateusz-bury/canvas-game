@@ -11,7 +11,7 @@ class Sprite {
 };
 
 
-class Fighter {
+class fi {
     constructor({position, velocity, color = 'red', offset}){
         this.position = position
         this.velocity = velocity
@@ -49,7 +49,7 @@ class Fighter {
         }
     };
 
-    update() {
+    update(){
         this.draw()
         this.hitBox.position.x = this.position.x + this.hitBox.offset.x
         this.hitBox.position.y = this.position.y
