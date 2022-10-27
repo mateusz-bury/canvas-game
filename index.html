@@ -45,12 +45,20 @@
             "></div>
         </div>
         <!-- timer-->
-        <div style="
-            background-color: green;
-            height: 100px;
-            width: 100px;
-            flex-shrink: 0;
-            "></div>
+        <div 
+            id="timer"
+            style="
+                background-color: green;
+                height: 100px;
+                width: 100px;
+                flex-shrink: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                "
+        >
+        10
+        </div>
         <!-- enemy health-->
         <div style="
             position:relative;
@@ -74,6 +82,23 @@
             "></div>
         </div>
     </div>
+    <div 
+        id = "displayText"
+        style ="
+            position:absolute;
+            color: white;
+            align-items: center;
+            justify-content: center; 
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            display: none;
+            
+
+    
+
+    ">tie</div>
     <canvas></canvas>
 </div>
 

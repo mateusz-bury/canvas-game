@@ -127,6 +127,38 @@ function kolizjaKwadratow({kwadrat1, kwadrat2}){
         kwadrat1.hitBox.position.y <= kwadrat2.position.y + kwadrat2.height
     )};
 
+function determineWinner({player, enemy,timerId}){
+    clearTimeout(timerId)
+    document.querySelector('#displayText').style.display = 'flex'
+    if (player.health === enemy.health)
+    {
+        document.querySelector('#displayText').innerHTML = 'REMIS!'
+    }   
+    else if (player.health > enemy.health){
+        document.querySelector('#displayText').innerHTML = 'MATI WINS!'
+    }   
+    else if (player.health < enemy.health){
+        document.querySelector('#displayText').innerHTML = 'BAMBUS WINS!'
+    }};
+
+let timer = 8
+let timerId
+
+function decreaseTimer(){ 
+   if (timer >0)
+   {
+        timerId = setTimeout(decreaseTimer, 1000)
+        timer--
+        document.querySelector('#timer').innerHTML = timer
+    }
+    if (timer === 0)
+    {
+        determineWinner({player,enemy, timerId})
+    }
+};
+
+decreaseTimer();
+
 function animation(){
     window.requestAnimationFrame(animation)
     c.fillStyle = 'black'
@@ -138,17 +170,21 @@ function animation(){
     enemy.velocity.x = 0
 
     // player movment
-    if(keys.a.pressed && player.lastKey === 'a'){
+    if(keys.a.pressed && player.lastKey === 'a')
+    {
         player.velocity.x = -5
     }
-    else if (keys.d.pressed && player.lastKey === 'd'){
+    else if (keys.d.pressed && player.lastKey === 'd')
+    {
         player.velocity.x = 5
     }
     // enemy movement
-    if(keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft'){
+    if(keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft')
+    {
         enemy.velocity.x = -5
     }
-    else if (keys.ArrowRight.pressed && enemy.lastKey === 'ArrowRight'){
+    else if (keys.ArrowRight.pressed && enemy.lastKey === 'ArrowRight')
+    {
         enemy.velocity.x = 5
     }
     // detect for colision
@@ -156,9 +192,10 @@ function animation(){
         kolizjaKwadratow({
         kwadrat1: player,
         kwadrat2: enemy
-    }) && 
+    })  && 
         player.isAttacking
-    ){
+    )
+    {
         player.isAttacking = false
         enemy.health -= 20
         document.querySelector('#enemyHealth').style.width = enemy.health+'%'
@@ -169,17 +206,24 @@ function animation(){
         kolizjaKwadratow({
         kwadrat1: enemy,
         kwadrat2: player
-    }) && 
+    })  && 
         enemy.isAttacking
-    ){
+    )
+    {
         enemy.isAttacking = false
         player.health -= 20
         document.querySelector('#playerHealth').style.width = player.health+'%'
         console.log('enemy attack!');
     }
+
+    // end game based on health
+    if (enemy.health <= 0 || player.health <=0)
+    {
+        determineWinner({player,enemy,timerId})
+    }
 };
 
-animation()
+animation();
 
 window.addEventListener('keydown',(event)=>{
   
