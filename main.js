@@ -6,9 +6,7 @@ canvas.height = 576;
 
 c.fillRect(0, 0, canvas.width, canvas.height);
 
-const gravity = 0.7
-
-class Sprite {
+class Fighter {
     constructor({position, velocity, color = 'red', offset}){
         this.position = position
         this.velocity = velocity
@@ -66,7 +64,9 @@ class Sprite {
     };
 };
 
-const player = new Sprite({
+
+const gravity = 0.7
+const player = new Fighter ({
     position:{
         x: 0,
         y: 0
@@ -81,7 +81,7 @@ const player = new Sprite({
     }
 });
 
-const enemy = new Sprite({
+const enemy = new Fighter ({
     position:{
         x: 400,
         y: 100
@@ -141,7 +141,7 @@ function determineWinner({player, enemy,timerId}){
         document.querySelector('#displayText').innerHTML = 'BAMBUS WINS!'
     }};
 
-let timer = 8
+let timer = 16
 let timerId
 
 function decreaseTimer(){ 
