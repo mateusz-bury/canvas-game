@@ -6,11 +6,27 @@ canvas.height = 576;
 
 c.fillRect(0, 0, canvas.width, canvas.height);
 
-
-
-
 const gravity = 0.7
-const player = new fi (
+
+const background = new Sprite ({
+    position:{
+        x: 0,
+        y:0
+    },
+    imageSrc: '/img/background.png'
+});
+
+const shop = new Sprite ({
+    position:{
+        x: 610,
+        y: 135
+    },
+    imageSrc: '/img/shop.png',
+    scale: 2.75,
+    frameMax: 6
+});
+
+const player = new Fighter (
     {
     position:{
         x: 0,
@@ -27,7 +43,7 @@ const player = new fi (
     }
 );
 
-const enemy = new fi ({
+const enemy = new Fighter ({
     position:{
         x: 400,
         y: 100
@@ -87,7 +103,7 @@ function determineWinner({player, enemy,timerId}){
         document.querySelector('#displayText').innerHTML = 'BAMBUS WINS!'
     }};
 
-let timer = 16
+let timer = 60
 let timerId
 
 function decreaseTimer(){ 
@@ -109,6 +125,8 @@ function animation(){
     window.requestAnimationFrame(animation)
     c.fillStyle = 'black'
     c.fillRect(0, 0, canvas.width, canvas.height)
+    background.update()
+    shop.update()
     player.update()
     enemy.update()
 
@@ -143,7 +161,7 @@ function animation(){
     )
     {
         player.isAttacking = false
-        enemy.health -= 20
+        enemy.health -= 5
         document.querySelector('#enemyHealth').style.width = enemy.health+'%'
         console.log('player attack!');
     }
@@ -157,7 +175,7 @@ function animation(){
     )
     {
         enemy.isAttacking = false
-        player.health -= 20
+        player.health -= 5
         document.querySelector('#playerHealth').style.width = player.health+'%'
         console.log('enemy attack!');
     }
