@@ -39,9 +39,30 @@ const player = new Fighter (
     offset: {
         x: 0,
         y: 0 
+    },
+    imageSrc: '/img/samuraiMack/Idle.png',
+    frameMax: 8,
+    scale: 2.5,
+    offset: {
+        x:170,
+        y:155
+    },
+    sprites:{
+        idle:{
+            imageSrc:'/img/samuraiMack/Idle.png',
+            frameMax: 8
+        },
+        run:{
+            imageSrc:'/img/samuraiMack/Run.png',
+            frameMax: 8,
+        },
+        jump:{
+            imageSrc:'/img/samuraiMack/Jump.png',
+            frameMax: 2,
+        }
+        
     }
-    }
-);
+    });
 
 const enemy = new Fighter ({
     position:{
@@ -81,44 +102,6 @@ const keys = {
     }
 };
 
-function kolizjaKwadratow({kwadrat1, kwadrat2}){
-    return(
-        kwadrat1.hitBox.position.x + kwadrat1.hitBox.width >= kwadrat2.position.x && 
-        kwadrat1.hitBox.position.x <= kwadrat2.position.x + kwadrat2.width && 
-        kwadrat1.hitBox.position.y + kwadrat1.hitBox.height >= kwadrat2.position.y &&
-        kwadrat1.hitBox.position.y <= kwadrat2.position.y + kwadrat2.height
-    )};
-
-function determineWinner({player, enemy,timerId}){
-    clearTimeout(timerId)
-    document.querySelector('#displayText').style.display = 'flex'
-    if (player.health === enemy.health)
-    {
-        document.querySelector('#displayText').innerHTML = 'REMIS!'
-    }   
-    else if (player.health > enemy.health){
-        document.querySelector('#displayText').innerHTML = 'MATI WINS!'
-    }   
-    else if (player.health < enemy.health){
-        document.querySelector('#displayText').innerHTML = 'BAMBUS WINS!'
-    }};
-
-let timer = 60
-let timerId
-
-function decreaseTimer(){ 
-   if (timer >0)
-   {
-        timerId = setTimeout(decreaseTimer, 1000)
-        timer--
-        document.querySelector('#timer').innerHTML = timer
-    }
-    if (timer === 0)
-    {
-        determineWinner({player,enemy, timerId})
-    }
-};
-
 decreaseTimer();
 
 function animation(){
@@ -128,19 +111,28 @@ function animation(){
     background.update()
     shop.update()
     player.update()
-    enemy.update()
+    // enemy.update()
 
     player.velocity.x = 0
     enemy.velocity.x = 0
 
     // player movment
+    
     if(keys.a.pressed && player.lastKey === 'a')
     {
         player.velocity.x = -5
+        player.switchSprite('run')
     }
     else if (keys.d.pressed && player.lastKey === 'd')
     {
         player.velocity.x = 5
+        player.switchSprite('run')
+    } else {
+        player.switchSprite('idle')
+    }
+
+    if (player.velocity.y < 0){
+       player.switchSprite('jump')
     }
     // enemy movement
     if(keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft')
