@@ -18,6 +18,7 @@ class Sprite{
         this.framesElapsed = 0
         this.frameHold = 10
         this.offset = offset
+
     }
     draw(){
         c.drawImage(
@@ -47,6 +48,7 @@ animateFrames(){
         }
 }
 
+
     update(){
         this.draw()
         this.animateFrames()
@@ -72,6 +74,7 @@ class Fighter extends Sprite{
                     frameMax,
                     offset
                 })
+
             this.velocity = velocity
             this.width = 50
             this.height = 150
@@ -96,6 +99,7 @@ class Fighter extends Sprite{
             for (const sprite in sprites){
                 sprites[sprite].image = new Image()
                 sprites[sprite].image.src = sprites[sprite].imageSrc
+
             }
         }
     
